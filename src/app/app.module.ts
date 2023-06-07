@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,24 +13,35 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SigninComponent } from './Forms/Signup/signin/signin.component';
 import { LoginComponent } from './Forms/login/login.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { productReducer } from './State/Reducers/productReducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductsEffects } from './State/Effects/productEffects';
+import { CartEffects } from './State/Effects/cartEffects';
+import { cartReducer } from './State/Reducers/cartReducer';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    LoginComponent
+    
   ],
   imports: [
     ProductsComponent,
     UsersComponent,
     CartComponent,
     OrdersComponent,
+    LoginComponent,
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     RouterModule,
     SigninComponent,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({product:productReducer,cart:cartReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([ProductsEffects,CartEffects])
    
   ],
   providers: [],

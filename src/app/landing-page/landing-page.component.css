@@ -1,6 +1,9 @@
 body{
     padding:0;
-     background: rgb(245, 236, 245);
+     /* background: rgb(236, 240, 241); */
+     background-color: white
+     /* background-color: #fff; */
+
 }
 
 .top{
@@ -21,8 +24,7 @@ body{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    /* padding-left:1rem; */
-    background-color:rgb(245, 236, 245);
+    background-color:white;
     margin:0;
     padding-bottom:1rem;
     border-bottom:1px rgb(224, 223, 223) solid;
@@ -59,31 +61,37 @@ body{
 
    
 }
-.title{
-    border-bottom:1px rgb(224, 223, 223) solid;
+.intro{
+    width:100%
 }
+
+.quicksale>.hero{
+    width:100%;
+    border:1px solid black;
+    height:230px;
+}
+/* .title{
+    border-bottom:1px rgb(224, 223, 223) solid;
+} */
 .products{
     display: flex;
     gap:50px;
     padding:1rem;
-    /* padding-left: 1rem; */
-
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
 }
+
 .product{
     background: white;
-    width:200px;
-    /* height:300px; */
+    width:260px;
     border-radius: 1rem;
     display: flex;
     flex-wrap: wrap;
     padding: 5px;
     flex-direction:column;
     align-items: center;
-    border:1px rgb(224, 223, 223) solid;
-    /* background-color: yellow; */
+    border:1px rgb(92, 164, 205) solid;
 }
-#product-pic{
+.prod{
+    width:150px;
     height:150px;
-    width:100%
 }

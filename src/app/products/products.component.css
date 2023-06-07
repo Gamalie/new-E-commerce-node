@@ -1,0 +1,29 @@
+.products{
+    display: flex;
+    gap:50px;
+    padding:1rem;
+    flex-wrap: wrap;
+}
+
+.product{
+    background: white;
+    width:260px;
+    border-radius: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    flex-direction:column;
+    align-items: center;
+    border:1px rgb(92, 164, 205)solid;
+}
+.prod{
+    width:150px;
+    height:150px;
+}
+button{
+    background-color:  rgb(92, 164, 205);
+    padding:10px;
+    color:white;
+    border:none;
+    border-radius: 0.5rem;
+}

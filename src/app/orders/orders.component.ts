@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { OrdersService } from '../Services/Orders/orders.service';
 import { CartService } from '../Services/Cart/cart.service';
 import {Cart} from '../interfaces'
+import { Observable } from 'rxjs';
+import { getProductsFromCart } from '../State/Actions/cartAction';
+import { getCart } from '../State/Reducers/cartReducer';
+import { Store } from '@ngrx/store';
 
 // export interface Products{
 //   Product_id: number
@@ -35,31 +39,16 @@ import {Cart} from '../interfaces'
 export class OrdersComponent{
 
   products!:Cart[]
-  constructor(public orderService:OrdersService, public cartService:CartService){
+  cart!:Observable<Cart[]>
+  constructor(private store:Store){
 
   }
 
-  placeOrder(){
-    this.orderService.placeOrder()
-  }
-
-  // ngOnInit(orderId:string){
-  //   this.orderService.getOrderById(orderId)
-  // }
-
-  getOrderByUser(userId:string){
-    this.orderService.getUserOrder(userId)
-  }
-
-  cancelOrder(orderId:string){
-    this.orderService.cancelOrders(orderId)
-
-  }
   ngOnInit(): void {
-    this.cartService.getAllProducts().subscribe(cartItems=>{
-      this.products=cartItems
-    })
+    this.cart= this.store.select(getCart)
+    this.store.dispatch(getProductsFromCart())
+    }
   }
 
 
-}
+

@@ -2,25 +2,28 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    /* padding-right: 10px; */
+ 
+    
 }
 
 .products{
     display: flex;
     flex-wrap: wrap;
-    padding:1rem;
-    justify-content: center;
-    align-content: center;
+    padding-top:1rem;
+    justify-content: baseline;
+   
+    /* align-content: center; */
     
 }
 .product{
     background: white;
-    width:70%; 
+    width:50%; 
     border:1px rgb(224, 223, 223) solid;
     gap:10px;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     flex-wrap: wrap;
+    padding:10px;
     justify-content: space-between;
 
 }
@@ -57,9 +60,11 @@ body{
 }
 .inc-dcr-button{
     display:flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap:30px;
+    /* gap:30px; */
     padding-right:0.8rem;
     /* width: 30%; */
     /* background-color: green; */
@@ -76,9 +81,6 @@ body{
 
 }
 .checkout{
-    /* background-color: yellow; */
-
-    /* max-width:40%; */
     padding:5px;
     max-height:200px;
     border: 1px solid rgb(173, 172, 172);
@@ -95,3 +97,7 @@ body{
     border-radius:1rem;
     color:white;
 } 
+.total{
+    display:flex;
+    align-items: center;
+}

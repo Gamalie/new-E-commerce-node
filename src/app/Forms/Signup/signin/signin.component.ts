@@ -13,7 +13,7 @@ import { UsersService } from 'src/app/Services/Users/users.service';
 })
 export class SigninComponent implements OnInit{
   form!:FormGroup
-
+  erroMessage=''
   constructor(private userservice:UsersService){}
 
   ngOnInit(): void {
@@ -27,6 +27,10 @@ export class SigninComponent implements OnInit{
     this.userservice.addUser(this.form.value).subscribe(
       res=>{
         console.log(res.message)
+      },
+      err=>{
+        this.erroMessage = err.message
+
       }
     )
     console.log(this.form)

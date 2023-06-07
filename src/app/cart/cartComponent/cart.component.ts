@@ -1,21 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from 'src/app/Services/Products/products.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartService } from 'src/app/Services/Cart/cart.service';
 import { OrdersService } from 'src/app/Services/Orders/orders.service';
-import {Cart} from '../../interfaces'
+import {Cart, Products} from '../../interfaces'
+import { Store } from '@ngrx/store';
+import { getCart } from 'src/app/State/Reducers/cartReducer';
+import { deleteProductsToCart, getProductsFromCart } from 'src/app/State/Actions/cartAction';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/State/appState';
 
-interface Products{
-  Product_id: number
-  Product_name:string
-  Product_description:string
-  Product_price:number
-  Product_image:string
-  User_id:string
-  Order_id:string
 
-}
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -25,32 +21,47 @@ interface Products{
 })
 export class CartComponent {
 products!:Products[]
-cart!:Cart[]
+cart!:Observable<Cart[]>
 
-  constructor(public cartService:CartService , public orderService:OrdersService){
+  constructor(public cartService:CartService , public orderService:OrdersService,private router:Router,private store:Store<AppState>){
 
   }
-
-  getCartItems(){
-    this.cartService.getAllProducts().subscribe(cartItems=>{
-      this.cart=cartItems
-    })
-  }
- 
-  incItemInCart(id:string){
-    this.cartService.increaseItemInCart(id)
-  }
-  decItemInCart(id:string){
-    this.cartService.decreaseItemInCart(id)
+  // public 
+  ngOnInit(){
+    this.cart= this.store.select(getCart)
+    this.store.dispatch(getProductsFromCart())
   }
   deleteFromCart(id:string){
-    this.cartService.deleteFromCart(id)
+    this.store.dispatch(deleteProductsToCart({prodId:id}))
   }
 
-  getOrders(orderId: string){
-   
-  this.orderService.getOrderById(orderId)
-  
+  incItemInCart(id:string){
+    this.cartService.increaseItemInCart(id).subscribe(res=>{console.log(res)
+      
+      console.log(id)
+  })
 
   }
+  orders(){
+    this.router.navigate(['/order'])
+  }
+
+  decItemInCart(id:string){
+    this.cartService.decreaseItemInCart(id).subscribe(res=>{console.log(res)
+      // console.log(id)
+  })
+
+  }
+  delFromCart(){
+    this.cartService.deleteFromCart().subscribe(res=>{console.log(res)})
+    this.router.navigate(['/order'])
+  }
+  delItemInCart(id:string){
+    this.cartService.decreaseItemInCart(id).subscribe(res=>{console.log(res)
+      // console.log(id)
+  })
+
+  }
+
 }
+

@@ -7,7 +7,11 @@
       <input type="email" name="email" placeholder="Email Address" formControlName="user_email">
       <p class="error" *ngIf="!form.get('email')?.valid && form.get('email')?.touched">*Email required</p>
       <input type="password" name="password" placeholder="Password" formControlName="user_password">
-      <p class="error" *ngIf="!form.get('password')?.valid && form.get('password')?.touched">*Full Name Required</p>
+      <p class="error" *ngIf="!form.get('password')?.valid && form.get('password')?.touched">*Password Required</p>
       <button type="submit">Sign Up</button>
+
+      <div class="failedRegistration" *ngIf="erroMessage">
+        <p>{{erroMessage}}</p>
+      </div>
     </form>
   </div>

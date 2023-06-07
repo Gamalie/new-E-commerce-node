@@ -1,13 +1,9 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AddedProductToCartSuccess, Products, newProducts } from 'src/app/interfaces';
 
-export interface Products{
-  Product_id: number
-  Product_name:string
-  Product_description:string
-  Product_price:number
-  Product_image:string
- Category:string
-}
+
 
 
 @Injectable({
@@ -15,60 +11,38 @@ export interface Products{
 })
 export class ProductsService {
 
-  products:Products[]=[
-    {  Product_id: 1,
-      Product_name:'Mama Africa Lunch',
-      Product_description:'Deliciously cooked',
-      Product_price: 200,
-      Product_image:'string',
-      Category:'Food'
-    },
 
-    {  Product_id: 2,
-      Product_name:'Kids Colorful shoes',
-      Product_description:'all sizes',
-      Product_price: 1500,
-      Product_image:'string',
-      Category:'Kids'
-    },
-    {  Product_id: 3,
-      Product_name:'Chairs',
-      Product_description:'strong and durable',
-      Product_price: 120000,
-      Product_image:'string',
-      Category:'Furniture'
-    },
-    {  Product_id: 4,
-      Product_name:'Chairs',
-      Product_description:'strong and durable',
-      Product_price: 120000,
-      Product_image:'string',
-      Category:'Furniture'
-    },
-    {  Product_id: 5,
-      Product_name:'Chairs',
-      Product_description:'strong and durable',
-      Product_price: 120000,
-      Product_image:'string',
-      Category:'Furniture'
-    }
-    
-    ]
+  token=localStorage.getItem('token') as string
+  userId=localStorage.getItem('user_id')
+  constructor(private http:HttpClient) {
 
-  constructor() { }
+   }
+   
+  getAllProducts():Observable<Products[]>{
+    return this.http.get<Products[]>('http://localhost:4000/Products')
+  }
 
-  getoneCategory(category:string){
-    let pos= this.products.find(product=>product.Category===category)
+  getProductById(Product_id:string):Observable<Products[]>{
+    return this.http.get<Products[]>(`http://localhost:4000/Products/${Product_id}`)
     
   }
+  addProduct(Product:newProducts):Observable<AddedProductToCartSuccess>{
+    console.log(Product)
+    return this.http.post<AddedProductToCartSuccess>(`http://localhost:4000/Products`,Product,{headers: new HttpHeaders().set('token',this.token)})
+  }
+  
+  updateProduct(product_id:string,product:newProducts):Observable<AddedProductToCartSuccess>{
+    
+    return this.http.put<AddedProductToCartSuccess>(`http://localhost:4000/Products/${product_id}`,{Product_id:product_id,...product},{headers: new HttpHeaders().set('token',this.token)})
 
-  getAllProducts():Products[]{
-    return this.products
   }
 
-  addProduct(newProduct:Products){
-    this. products.push(newProduct)
+
+  deleteProduct(product_id:string):Observable<AddedProductToCartSuccess>{
+    return this.http.delete<AddedProductToCartSuccess>(`http://localhost:4000/Products/${product_id}`,{headers: new HttpHeaders().set('token',this.token)})
+  }
+
   }
 
 
-}
+

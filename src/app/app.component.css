@@ -3,15 +3,36 @@
     align-items: center;
     /* gap:0.5rem; */
     justify-content: space-between;
-    background-color: white;
-    color:black;
-    border:1px rgb(224, 223, 223) solid;
+    background-color: rgb(92, 164, 205);
+    color:white;
+    border:1px rgb(92, 164, 205) solid;
     padding-left:0.5rem;
     padding-right:0.5rem;
     flex-wrap: wrap;
-
     /* position:fixed; */
-    /* top:0; */
-    /* z-index: 100; */
-    /* width:100% */
+    /* top:0;
+    z-index: 100;
+    width:100% */
+}
+.account{
+    display:flex;
+    gap:2rem;
+    flex-wrap: wrap;
+}
+
+#cart-icon{
+    width:20px;
+    height:20px;
+}
+.cart{
+    display:flex;
+    gap:1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.search{
+    display:flex;
+    gap:1rem;
+    flex-wrap: wrap;
+    align-items: center;
 }

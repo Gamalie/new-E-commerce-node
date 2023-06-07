@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../Services/Products/products.service';
 import { RouterModule } from '@angular/router';
+import { Cart, Products } from '../interfaces';
+import { Observable } from 'rxjs';
+import { CartService } from '../Services/Cart/cart.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../State/appState';
+import { getProducts } from '../State/Actions/productAction';
+import { getProduct } from '../State/Reducers/productReducer';
 
-export interface Products{
-  Product_id: number
-  Product_name:string
-  Product_description:string
-  Product_price:number
-  Product_image:string
- Category:string
-}
+
 
 @Component({
   selector: 'app-landing-page',
@@ -18,14 +18,19 @@ export interface Products{
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit{
-  products!:Products[]
+  products!:Observable<Products[]>
+  cart!:Observable<Cart[]>
 
-  constructor(private productService:ProductsService){
-
+  constructor(private cartService:CartService,private store:Store<AppState>){
   }
   ngOnInit(): void {
-    this.products = this. productService.getAllProducts()
+    this.products = this.store.select(getProduct)
+    this.store.dispatch(getProducts())
   }
+
+  
+
+ 
 
 
 }
